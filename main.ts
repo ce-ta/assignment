@@ -16,6 +16,13 @@ type EntityType = "S" | "A" | "B" | "C" | "D" | "E" | "G" | "o";
 
 type Direction = { name: 'u' | 'd' | 'l' | 'r'; dx: number; dy: number };
 
+const playerMoves: Direction[] = [
+    { name: "u", dx: 0, dy: 1 },
+    { name: "d", dx: 0, dy: -1 },
+    { name: "l", dx: 1, dy: 0 },
+    { name: "r", dx: -1, dy: 0 }
+]
+
 const directionTable: Record<string, Direction[]> = {
     A: [
         { name: "d", dx: 0, dy: -1 },
@@ -61,6 +68,7 @@ const entities: Record<EntityType, Pos[]> = {
     o: [],
 };
 
+// プレイヤー・敵・ゴール・アイテムの場所を格納
 for (let y = 0; y < field.length; y++) {
     const row = field[y];
 
@@ -73,20 +81,22 @@ for (let y = 0; y < field.length; y++) {
     }
 }
 
-const enemiesC: Enemy[] = entities.C.map(pos => ({
-    x: pos.x,
-    y: pos.y,
-    dir: "u",
-    step: 0,
-}));
+// const enemiesC: Enemy[] = entities.C.map(pos => ({
+//     x: pos.x,
+//     y: pos.y,
+//     dir: "u",
+//     step: 0,
+// }));
 
-const enemiesD: Enemy[] = entities.D.map(pos => ({
-    x: pos.x,
-    y: pos.y,
-    dir: "u",
-    step: 0,
-}));
+// const enemiesD: Enemy[] = entities.D.map(pos => ({
+//     x: pos.x,
+//     y: pos.y,
+//     dir: "u",
+//     step: 0,
+// }));
 
+
+// 上下左右に移動する場合の動き方の定義
 function moveEnemy(type: string, pos: Pos, grid: string[][]): Pos {
     const dirs = directionTable[type];
 
